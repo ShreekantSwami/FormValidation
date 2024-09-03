@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1 id="h1Id"></h1>
+    <a href="" id="links" onclick="removes()"></a>
+    <script>
+      if (localStorage.getItem("loggedUser")) {
+        h1Id.textContent = "You have been successfully logged in...";
+        links.textContent = "LogOut";
+        links.style.textDecoration = "none";
+        links.style.fontSize = "1.5rem";
+        links.href = "./index.html";
+      } else {
+        h1Id.textContent = "You have not logged in you have to log in first.";
+        links.href = "./index.html";
+        links.textContent = "Login";
+        // window.location.href = "./index.html";
+      }
+      function removes() {
+        localStorage.removeItem("loggedUser");
+        window.location.reload();
+      }
+    </script>
+  </body>
+</html>

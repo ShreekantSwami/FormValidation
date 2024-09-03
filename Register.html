@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>User Registration</title>
+  </head>
+  <body
+    class="w-full h-screen flex justify-center items-center bg-gradient-to-tr from-orange-900 to-orange-900 from-25% via-orange-400 to-80%"
+  >
+    <div
+      class="w-[50%] h-[50%] bg-white rounded-lg flex justify-center items-center shadow-lg"
+    >
+      <form
+        action="#"
+        class="space-y-4 px-4 w-full flex flex-col justify-center items-center"
+        onsubmit="return false;"
+      >
+        <h1
+          class="text-orange-700 font-semibold text-4xl underline underline-offset-4"
+        >
+          Register
+        </h1>
+        <fieldset
+          class="border-[1px] border-orange-900 px-3 py-3 rounded-lg flex items-center overflow-hidden w-[90%]"
+        >
+          <legend class="px-2 text-orange-700 font-bold">Name</legend>
+          <img src="./assets/User.png" alt="" class="w-[2%] mr-2" />
+          <input
+            required
+            id="nameId"
+            type="text"
+            autocomplete="off"
+            spellcheck="false"
+            class="outline-none text-orange-800 rounded-lg w-full focus:text-lg transoton transition-all ease-in-out"
+            placeholder="Enter your name here..."
+            onfocus="removeSpan()"
+          />
+        </fieldset>
+        <fieldset
+          class="border-[1px] border-orange-900 px-3 py-3 rounded-lg flex items-center overflow-hidden w-[90%]"
+          id="usernameFieldSet"
+        >
+          <legend class="px-2 text-orange-700 font-bold">Username</legend>
+          <img src="./assets/email.png" alt="" class="w-[2%] mr-2" />
+          <input
+            required
+            id="usernameId"
+            type="text"
+            autocomplete="off"
+            spellcheck="false"
+            class="outline-none text-orange-800 rounded-lg w-full focus:text-lg transoton transition-all ease-in-out"
+            placeholder="Enter username here..."
+            onkeyup="checkUsername()"
+            onfocus="removeSpan()"
+          />
+        </fieldset>
+        <span id="errorUsername"></span>
+        <div class="flex justify-around items-center w-[95%]">
+          <div class="flex flex-col justify-around items-center">
+            <fieldset
+              class="border-[1px] border-orange-900 px-3 py-3 rounded-lg flex justify-around items-center overflow-hidden w-[90%]"
+              id="passwordFieldSet"
+            >
+              <legend class="px-2 text-orange-700 font-bold">Password</legend>
+              <img src="./assets/key.png" alt="" class="w-[5%] mr-2" />
+              <input
+                required
+                autocomplete="off"
+                spellcheck="false"
+                type="password"
+                id="passwordId"
+                class="outline-none text-orange-800 rounded-lg focus:text-lg transoton transition-all ease-in-out w-full"
+                placeholder="Enter password here..."
+                onkeyup="checkPassword()"
+              />
+            </fieldset>
+            <span id="passwordError"></span>
+          </div>
+
+          <div class="flex flex-col justify-center items-center">
+            <fieldset
+              class="border-[1px] border-orange-900 px-3 py-3 rounded-lg flex justify-around items-center overflow-hidden w-[90%]"
+              id="confirmPasswordFieldSet"
+            >
+              <legend class="px-2 text-orange-700 font-bold">
+                Confirm Password
+              </legend>
+              <img src="./assets/key.png" alt="" class="w-[5%] mr-2" />
+              <input
+                required
+                autocomplete="off"
+                spellcheck="false"
+                id="confirmPasswordId"
+                type="password"
+                class="outline-none text-orange-800 rounded-lg focus:text-lg transoton transition-all ease-in-out w-full"
+                placeholder="Confirm your password here..."
+                onkeyup="checkConfirmPassword()"
+              />
+            </fieldset>
+            <span id="confirmPasswordError"></span>
+          </div>
+        </div>
+        <button
+          type="button"
+          class="bg-orange-300 text-orange-800 px-4 py-2 font-bold rounded-lg shadow-lg w-[50%] outline-dashed outline-2 outline-orange-800 hover:bg-orange-900 hover:text-white"
+          onclick="submits()"
+        >
+          Register
+        </button>
+        <hr class="h-[0.8px] w-full bg-slate-200" />
+        <p class="text-orange-800 font-light">
+          Already have an account?
+          <a href="index.html" class="font-medium text-blue-500">Click Here</a>
+        </p>
+      </form>
+    </div>
+    <script>
+      var usernameInput = document.getElementById("usernameId");
+      var passwordInput = document.getElementById("passwordId");
+      var confirmPasswordInput = document.getElementById("confirmPasswordId");
+
+      function checkUsername() {
+        let value = usernameInput.value;
+        const usernamePattern =
+          /^[a-z][a-z0-9]+[@](gmail\.com|rediffmail\.com|yahoo\.com)$/;
+        if (value.match(usernamePattern)) {
+          document.getElementById("errorUsername").innerHTML =
+            "<p class='text-green-500 font-bold'>Alright ✅</p>";
+        } else {
+          document.getElementById("errorUsername").innerHTML =
+            value !== ""
+              ? "This is not a valid username, please enter a valid email address ❌"
+              : "";
+        }
+      }
+
+      function checkPassword() {
+        const pattern = /^([a-zA-Z0-9_]){8,16}$/;
+        let value = passwordInput.value;
+        if (value.match(pattern)) {
+          document.getElementById("passwordError").innerHTML =
+            "<p class='text-green-500 font-bold'>Alright ✅</p>";
+        } else {
+          document.getElementById("passwordError").innerHTML =
+            value !== ""
+              ? "<p class='text-red-500 font-bold text-[10px] w-[90%]'>This is not a valid password follow the instruction: Password should be minimum 8-16 characters long which should have any case letter or digit or underscore, no other symbols are allowed. ❌</p>"
+              : "";
+        }
+      }
+
+      function checkConfirmPassword() {
+        if (passwordInput.value === "") {
+          confirmPasswordInput.value = "";
+          passwordInput.focus();
+        }
+      }
+
+      function submits() {
+        if (usernameInput.value !== "" && passwordInput.value !== "") {
+          var userInput = usernameInput.value.trim();
+          var passInput = passwordInput.value.trim();
+
+          const obj = {
+            username: userInput,
+            password: passInput,
+          };
+
+          const jsonString = JSON.stringify(obj);
+
+          localStorage.setItem("users", jsonString);
+
+          window.location.href = "./index.html";
+        } else {
+          console.log("Please enter both username and password.");
+        }
+      }
+    </script>
+  </body>
+</html>
