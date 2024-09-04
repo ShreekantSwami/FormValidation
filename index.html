@@ -81,13 +81,17 @@
         let userValue = usernameInput.value;
         let passwordValue = passwordInput.value;
         const obj = JSON.parse(localStorage.getItem("users"));
-        if (userValue != null && passwordValue != null) {
-          if (userValue == obj.username && passwordValue == obj.password) {
-            localStorage.setItem("loggedUser", "true");
-            window.location.href = "./home.html";
-          } else {
-            alert("User not found...");
+        if (obj !== null) {
+          if (userValue != null && passwordValue != null) {
+            if (userValue == obj.username && passwordValue == obj.password) {
+              localStorage.setItem("loggedUser", "true");
+              window.location.href = "./home.html";
+            } else {
+              alert("User not found...");
+            }
           }
+        } else {
+          alert("No record Found");
         }
       }
     </script>
